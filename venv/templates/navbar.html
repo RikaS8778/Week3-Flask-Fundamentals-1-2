@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Think & Thrive</title>
+        <meta name="description" content="Focused on learning, growth, and hobbies">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/postList.css') }}">
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-title-container">
+                <h1 class="main-title">Think & Thrive</h1>
+            </div>
+
+            {% if logged_in_user %}
+                <p class="welcome-message">Welcome, {{ logged_in_user.name }}!</p>
+            {% endif %} 
+
+            {% if error_message %}
+                <div id="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+            
+            <div class="nav-container">
+                <nav class="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/add-post">Add Content</a></li>
+                        {% if logged_in_user %}
+                            <li><a href="/logout" id="logout-button">Logout</a></li>
+                        {% else %}
+                            {% if request.path != '/register-form' %}
+                                <li><a href="" id="login-button">Login</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </nav>
+                <select id="category-selector" aria-label="Category">
+                    {% if categories %}
+                        {% for category in categories %}
+                        <option value="{{ category.id }}"
+                            {% if selected_category_id %}
+                                {% if category.id == selected_category_id %}selected{% endif %}
+                            {% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div> 
+        </header>
+
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+        
+
+        <footer class="footer">
+            <p>&copy; 2025 Think & Thrive | Created by Rika@CCTB</p>
+        </footer>
+
+        <!-- Login Popup -->
+        <div id="popupOverlay" class="popup-overlay hidden">
+            <div class="popup-content">
+                <span id="closePopup" class="close-btn">&times;</span>
+                <h2 class="popup-header">Login</h2>
+                <form id="loginForm" method="POST" action="/login">
+                    <input type="text" name="email" class="input-field" placeholder="sample@sample.com" required>
+                    <input type="password" name="password" class="input-field" placeholder="Password12345" required>
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+                <p>Don't have an account? <a href="/register-form">Register</a></p>
+            </div>
+
+        </div>
+
+
+        <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    </body>
+</html>

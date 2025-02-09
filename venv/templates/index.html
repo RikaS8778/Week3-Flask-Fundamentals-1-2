@@ -1,0 +1,38 @@
+{% import 'post.html' as macro%}
+
+{%extends "navbar.html" %} 
+{%block content%} 
+
+    
+        <div class="post-list">
+            {%if posts%}
+                {%for post in posts %}
+                    <div class="post-container">
+                        <div class="title-container">
+                            <h3> {{ post.title }} </h3>
+                        </div>
+                        <div class="post-info-list">
+                            <p> written by {{ post.author }}.</p>
+                            <p> date: {{ post.date }}</p>
+                            <p> category: {{ post.category }}</p>
+                            {% if logged_in_user %}
+                                {% if post.author == logged_in_user.name %}
+                                    <ul class="post-options">
+                                        <li> <a href="/edit-post/{{ post.id }}">Edit</a> </li>
+                                        <li> <a href="/delete-post/{{ post.id }}">Delete</a> </li>
+                                    </ul>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <p class="post-content"> 
+                            {{ post.content[:80] }} 
+                            {% if post.content|length > 80 %}
+                                ... <a href="/post/{{ post.id }}">view more</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+{% endblock %}

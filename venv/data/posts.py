@@ -1,3 +1,5 @@
+from .users import users
+from .categories import categories
 
 posts = [
     {
@@ -177,3 +179,12 @@ posts = [
         'deleted': False
     },
 ]
+
+def getPostsWithAuthurNameAndCategoryName(getCategoryID=None):
+    if getCategoryID:
+        posts = [post for post in posts if post['category_id'] == int(getCategoryID)]
+        
+    for post in posts:
+        post['author'] = [user for user in users if user['id'] == post['created_by']][0]['name']
+        post['category'] = [category for category in categories if category['id'] == post['category_id']][0]['name']
+    return posts
