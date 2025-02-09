@@ -1,4 +1,4 @@
-{% import 'post.html' as macro%}
+{% import 'macro.html' as macro%}
 
 {%extends "navbar.html" %} 
 {%block content%} 
@@ -13,7 +13,7 @@
                         </div>
                         <div class="post-info-list">
                             <p> written by {{ post.author }}.</p>
-                            <p> date: {{ post.date }}</p>
+                            {{macro.dateConverter(post.date)}}
                             <p> category: {{ post.category }}</p>
                             {% if logged_in_user %}
                                 {% if post.author == logged_in_user.name %}
@@ -27,7 +27,7 @@
                         <p class="post-content"> 
                             {{ post.content[:80] }} 
                             {% if post.content|length > 80 %}
-                                ... <a href="/post/{{ post.id }}">view more</a>
+                                ... <a href="/posts/{{ post.id }}">view more</a>
                             {% endif %}
                         </p>
                     </div>

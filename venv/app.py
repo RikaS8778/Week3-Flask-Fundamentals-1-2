@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for
 from  data.categories import categories
 from data.posts import posts
 from data.users import users
@@ -92,8 +92,26 @@ def category_posts():
     else:
         return redirect('/')
     
-    
+@app.route('/add-post')
+def add_post():
+        return render_template('add-post.html', categories=categories_copy, logged_in_user=logged_in_user)
 
+@app.route('/posts/<id>')
+def showPost(id):
+    post = [post for post in posts if post['id'] == int(id)][0]
+    post['author'] = [user for user in users if user['id'] == post['created_by']][0]['name']
+    post['category'] = [category for category in categories if category['id'] == post['category_id']][0]['name']
+    post['date'] = dt.strptime(post['created_at'], '%Y-%m-%d %H:%M:%S').strftime('%Y/%m/%d')
+    return render_template('post.html', post=post, logged_in_user=logged_in_user)
+
+
+@app.template_filter('format_date')
+def format_date(value):
+    try:
+        date_obj = dt.strptime(value, '%Y/%m/%d')
+        return date_obj.strftime('%B %d, %Y')
+    except ValueError:
+        return value 
 
 if __name__ == "__main__":
     app.run(debug=True)  # Run the Flask app in debug mode

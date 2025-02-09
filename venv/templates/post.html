@@ -1,3 +1,33 @@
-{% macro renderItems(posts) %}
+{% import 'macro.html' as macro%}
+
+{%extends "navbar.html" %} 
+{%block content%} 
+
     
-{% endmacro %}
+        <div class="post-list">
+            {%if post%}
+                <div class="post-container">
+                    <div class="title-container">
+                        <h3> {{ post.title }} </h3>
+                    </div>
+                    <div class="post-info-list">
+                        <p> written by {{ post.author }}.</p>
+                        {{macro.dateConverter(post.date)}}
+                        <p> category: {{ post.category }}</p>
+                        {% if logged_in_user %}
+                            {% if post.author == logged_in_user.name %}
+                                <ul class="post-options">
+                                    <li> <a href="/edit-post/{{ post.id }}">Edit</a> </li>
+                                    <li> <a href="/delete-post/{{ post.id }}">Delete</a> </li>
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <p class="post-detail-content"> 
+                        {{ post.content}} 
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+{% endblock %}
