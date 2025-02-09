@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/postList.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/postForm.css') }}">
     </head>
     <body>
         <header class="header">
@@ -39,7 +40,12 @@
                         {% endif %}
                     </ul>
                 </nav>
-                <select id="category-selector" aria-label="Category">
+                
+                {% if request.path == '/add-post' %}
+                    <select id="category-selector-hidden" aria-label="Category">
+                {% else %}
+                    <select id="category-selector" aria-label="Category">
+                {% endif %}
                     {% if categories %}
                         {% for category in categories %}
                         <option value="{{ category.id }}"
@@ -49,6 +55,7 @@
                         {% endfor %}
                     {% endif %}
                 </select>
+
             </div> 
         </header>
 

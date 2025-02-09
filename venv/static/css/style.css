@@ -55,7 +55,7 @@ body {
 
 .nav-container {
     display: flex;
-    align-items: center; /* 垂直方向の中央揃え */
+    align-items: center; 
     position: relative;
     margin: 15px 10px;
 }
@@ -63,7 +63,7 @@ body {
 .nav-menu {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* 中央寄せ */
+    transform: translateX(-50%); 
 }
   
 #category-selector {
@@ -75,6 +75,17 @@ body {
     background-color: #fff;
     transition: background-color 0.3s ease;
     /* width: 130px; */
+}
+
+#category-selector-hidden{
+    visibility: hidden; 
+    margin-left: auto;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
 }
 
 .welcome-message {

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('DOM loaded');
     const submitSingin = document.getElementById("signin-btn");
     const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{11,}$/;
     const passwordError = document.getElementById('password-error');

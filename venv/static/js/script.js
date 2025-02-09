@@ -46,17 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }   
     }
 
-    categorySelector.addEventListener('change', function() {
-        var category = this.value;
-        console.log(category);
-        if(category != 'all') {
-            var url = '/posts?category_id=' + category;
-            window.location.href = url;
-        } else {
-            window.location.href = '/posts';
-        }
-        
-    });
-
+    if(categorySelector){
+        categorySelector.addEventListener('change', function() {
+            var category = this.value;
+            console.log(category);
+            if(category != 'all') {
+                var url = '/posts?category_id=' + category;
+                window.location.href = url;
+            } else {
+                window.location.href = '/posts';
+            }
+            
+        });
+    }
 
 });

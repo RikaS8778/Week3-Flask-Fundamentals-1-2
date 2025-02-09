@@ -2,8 +2,6 @@
 
 {%extends "navbar.html" %} 
 {%block content%} 
-
-    
         <div class="post-list">
             {%if posts%}
                 {%for post in posts %}
@@ -28,6 +26,8 @@
                             {{ post.content[:80] }} 
                             {% if post.content|length > 80 %}
                                 ... <a href="/posts/{{ post.id }}">view more</a>
+                            {% else %}
+                                <a href="/posts/{{ post.id }}">view content detail</a>
                             {% endif %}
                         </p>
                     </div>

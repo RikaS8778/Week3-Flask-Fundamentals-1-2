@@ -1,0 +1,51 @@
+#post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.post-form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post-form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea.post-form-input {
+    height: 120px;
+    resize: vertical;
+}
+
+.post-submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    margin: 10px auto; 
+    display: block;
+}
+
+.post-submit-button:hover {
+    background-color: #0056b3;
+}
+
+.post-form-hidden {
+    display: none;
+}
+
+#form-submit-error {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+}

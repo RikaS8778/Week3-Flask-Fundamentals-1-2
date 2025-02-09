@@ -1,0 +1,49 @@
+{%extends "navbar.html" %} 
+{%block content%} 
+<form id="post-form">
+
+    <div class="submit-error" id="form-submit-error" class="error"></div>
+   
+    <label for="title" class="post-form-label">Title</label>
+    <input type="text" id="title" name="title" maxlength="200" required class="post-form-input" placeholder="Enter the title"
+        {% if post %}value="{{ post.title }}"{% endif %}>
+
+    
+    <label for="content" class="post-form-label">Content</label>
+    <textarea id="content" name="content" required class="post-form-input" placeholder="Write your content...">{% if post %}{{ post.content }}{% endif %}</textarea>
+    
+    
+    <label for="category" class="post-form-label">Category</label>
+    <select id="category" name="category" required class="post-form-input">
+        {% if categories %}
+        {% for category in categories %}
+        <option value="{{ category.id }}"
+            {% if post %}
+                {% if category.id == post.category_id %}selected{% endif %}
+            {% endif %}>{{ category.name }}</option>
+        {% endfor %}
+    {% endif %}
+    </select>
+
+    {% if logged_in_user %}
+    <input type="hidden" name="user_id" value="{{ logged_in_user.id }}" class="post-form-hidden" id="user_id">
+    {% endif %}
+    <input type="hidden" name="publish_at" class="post-form-hidden" {% if post %} value="{{ post.publish_at }}"{% endif %}> 
+
+
+    {% if post %}
+        <input type="hidden" name="id" value="{{ post.id }}" class="post-form-hidden" id="post_id">
+        <input type="hidden" name="created_by" value="{{ post.created_by }}" class="post-form-hidden" id="created_by">
+    {% endif %}
+    
+    {% if post %}
+    <button type="button" id="post-form-update" class="post-submit-button">Update Post</button>
+    {% else %}
+    <button type="button" id="post-form-submit" class="post-submit-button">Submit Post</button>
+    {% endif %}
+</form>
+
+
+<script src="{{ url_for('static', filename='js/postForm.js') }}" defer></script>
+
+{% endblock %}
